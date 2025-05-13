@@ -44,4 +44,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function stores()
+    {
+        return $this->belongsToMany(Store::class)->withPivot('followed_at')->withTimestamps();
+    }
 }

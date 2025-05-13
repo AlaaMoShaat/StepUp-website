@@ -33,6 +33,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'serve' => true,
             'throw' => false,
         ],
 
@@ -44,6 +45,20 @@ return [
             'throw' => false,
         ],
 
+        'stores' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/stores'),
+            'url' => env('APP_URL').'/uploads/stores',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'settings' => [
+            'driver' => 'local',
+            'root' => public_path('/uploads/settings'),
+            'url' => env('APP_URL').'/uploads/settings',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -55,7 +70,6 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
     ],
 
     /*
