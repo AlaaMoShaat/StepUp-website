@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branch_opening_hours', function (Blueprint $table) {
+        Schema::create('days', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('branch_id')->constrained('store_branches')->onDelete('cascade');
-            $table->foreignId('opening_hour_id')->constrained('opening_hours')->onDelete('cascade');
+            $table->json('day');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('branch_opening_hours');
+        Schema::dropIfExists('days');
     }
 };

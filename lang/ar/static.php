@@ -146,6 +146,7 @@ return [
         'branches' => 'الافرع',
         'branch' => 'فرع',
         'add_branch' => 'إضافة فرع',
+        'working_hours' => 'ساعات العمل',
     ],
 
 

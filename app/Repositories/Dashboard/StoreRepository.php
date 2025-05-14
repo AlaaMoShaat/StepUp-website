@@ -2,22 +2,24 @@
 
 namespace App\Repositories\Dashboard;
 
+use App\Models\Appointment;
 use App\Models\Store;
 
 class StoreRepository
 {
-    public function __construct()
+    public function getStore($id)
     {
-        //
-    }
-    public function getStore($id) {
         return Store::find($id);
     }
-    public function getStores() {
+
+    public function getStores()
+    {
         $stores = Store::withCount('catalogs')->latest()->get();
         return $stores;
     }
-    public function createStore($data) {
+
+    public function createStore($data)
+    {
         return Store::create([
             'name' => $data['name'],
             'logo' =>$data['logo'],
@@ -28,7 +30,9 @@ class StoreRepository
             'status' =>$data['status'],
         ]);
     }
-    public function updateStore( $store, $data) {
+
+    public function updateStore( $store, $data)
+    {
         $updateData = [
             'name' => $data['name'],
             'importance_level' => $data['importance_level'],
@@ -47,7 +51,11 @@ class StoreRepository
         return $store;
     }
 
-    public function deleteStore($store) {
+    public function deleteStore($store)
+    {
+        $branchIds = $store->branches()->pluck('id');
+        Appointment::whereIn('branch_id', $branchIds)->delete();
+        $store->branches()->delete();
         return $store->delete();
     }
 

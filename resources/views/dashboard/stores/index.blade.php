@@ -21,8 +21,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a data-toggle="modal" data-target="#add-store" type="button"
-                            class="btn btn-info btn-min-width btn-glow mr-1 mb-1">{{ __('static.stores.create_new_store') }}</a>
+                        <a href="{{ route('dashboard.stores.create') }}" type="button"
+                        class="btn btn-info btn-min-width btn-glow mr-1 mb-1">{{ __('static.stores.create_store') }}</a>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -78,7 +78,6 @@
                 </div>
             </div>
         </div>
-        @include('dashboard.stores._create')
     </section>
     <!-- DOM - jQuery events table -->
 @endsection
@@ -243,64 +242,6 @@
                 },
                 'colvis' // زر إظهار/إخفاء الأعمدة
             ]
-        });
-
-
-        $(document).ready(function() {
-            let valueIndex = ($('.branches_row').length) + 1 || 2;
-            let store_id = $('#store_id').val();
-
-            $('#add_more_branches').on('click', function(e) {
-                e.preventDefault();
-                let newRow = `
-
-                    <div class="row branches_row">
-                            <div class="col-md-12"><h4>{{ __('static.stores.branch') }} ${valueIndex}</h4></div>
-                            <div class="col-md-10" id="address-dropdown-${valueIndex}">
-                                <fieldset class="form-group">
-                                    <label for="neighborhood_${valueIndex}">{{ __('static.regions.neighborhood_name') }}</label>
-                                    <select class="single-select-box selectivity-input" id="neighborhood_${valueIndex}"
-                                        data-placeholder="No city selected" name="branches[${valueIndex}][neighborhood_id]">
-                                        @foreach ($neighborhoods as $neighborhood)
-                                            <option value="{{ $neighborhood->id }}">{{ $neighborhood->name }} -
-                                                {{ $neighborhood->postal_code }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </fieldset>
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="form-group">
-                                    <label for="address_${valueIndex}">{{ __('static.stores.address') }}</label>
-                                    <input type="text" id="address_${valueIndex}" class="form-control border-primary"
-                                        placeholder="{{ __('static.stores.address') }}"
-                                       name="branches[${valueIndex}][address]">
-                                </div>
-                            </div>
-                            <div class="col-md-10">
-                                <div class="form-group">
-                                    <label for="location_${valueIndex}">{{ __('static.stores.location') }}</label>
-                                    <input type="text" id="location_${valueIndex}" class="form-control border-primary"
-                                        placeholder="{{ __('static.stores.location') }}"
-                                        name="branches[${valueIndex}][location]">
-                                </div>
-                            </div>
-                            <div class="col-md-2 mt-2">
-                                <button type="button" class="btn btn-danger removeValRow"><i
-                                        class="ft-x"></i></button>
-                            </div>
-                     </div>
-                `;
-
-                $('.branches_row:last').after(newRow);
-                $(`#neighborhood_${valueIndex}`).selectivity();
-                valueIndex++;
-            });
-
-            $(document).on('click', '.removeValRow', function() {
-                $(this).closest('.branches_row').remove();
-            });
         });
     </script>
 @endpush
