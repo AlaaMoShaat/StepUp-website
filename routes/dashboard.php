@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\StoreController;
+use App\Http\Controllers\Dashboard\CatalogController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -80,12 +81,27 @@ Route::group(
             ################################ End Users Routes #############################
 
             ################################ Store Routes #################################
-            Route::group([], function() {
+            Route::group(['middleware'=>'can:stores'], function() {
                 Route::resource('stores', StoreController::class)->except('show');
                 Route::get('stores-all', [StoreController::class, 'getAllstores'])->name('stores.all');
                 Route::get('stores/{id}/status', [StoreController::class, 'changeStatus'])->name('stores.changeStatus');
             });
             ################################ End Store Routes #################################
+
+
+           ################################ Catalogs Routes #################################
+           Route::group([], function() {
+                Route::get('stores/{store}/catalogs/create', [CatalogController::class, 'create'])->name('catalogs.create');
+                Route::get('catalogs', [CatalogController::class, 'index'])->name('catalogs.index');
+                Route::post('catalogs', [CatalogController::class, 'store'])->name('catalogs.store');
+                Route::get('catalogs-all', [CatalogController::class, 'getAllCatalogs'])->name('catalogs.all');
+                Route::get('catalogs-all/{store_id}', [CatalogController::class, 'getStoreCatalogs'])->name('catalogs.getStoreCatalogs');
+                Route::get('catalogs/{id}/edit', [CatalogController::class, 'edit'])->name('catalogs.edit');
+                Route::put('catalogs/{id}', [CatalogController::class, 'update'])->name('catalogs.update');
+                Route::delete('catalogs/{id}', [CatalogController::class, 'destroy'])->name('catalogs.destroy');
+                Route::get('catalogs/{id}/status', [CatalogController::class, 'changeStatus'])->name('catalogs.changeStatus');
+            });
+           ################################ End Catalog Routes #################################
 
             ################################ Setting Routes #################################
             Route::group(['middleware'=>'can:settings', 'as' => 'settings.'],  function() {
@@ -93,5 +109,6 @@ Route::group(
                 Route::put('settings/{id}', [SettingController::class, 'update'])->name('update');
             });
             ################################ End Setting Routes #################################
+
         });
     });

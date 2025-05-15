@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalogs', function (Blueprint $table) {
+        Schema::create('brochure_hotspots', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete();
-            $table->string('title');
-            $table->text('description');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('status')->default(true);
+            $table->foreignId('brochure_id')->constrained('brochures')->cascadeOnDelete();
+            $table->foreignId('offer_id')->nullable()->constrained('offers')->nullOnDelete();
+            $table->string('coordinates');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalogs');
+        Schema::dropIfExists('brochure_hotspots');
     }
 };

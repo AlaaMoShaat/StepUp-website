@@ -33,7 +33,11 @@ return [
         'no' => 'No',
         'full_screen' => 'Full Screen',
         'new_image_uploded' => 'New Image Upload',
-        'failed_update' => 'Failed to Update'
+        'failed_update' => 'Failed to Update',
+        'start_date' => 'Start Date',
+        'end_date' => 'End Date',
+        'to' => 'To',
+        'save' => 'Save'
     ],
     'errors' => [
         '403' => 'Sorry! You do not have permission to access this page.',
@@ -145,6 +149,23 @@ return [
         'branch' => 'Branch',
         'add_branch' => 'Add Branch',
         'working_hours' => 'Working Hours',
+    ],
+
+    'catalogs' => [
+        'title' => 'Catalog',
+        'title_ar' => 'Title in Arabic',
+        'title_en' => 'Title in English',
+        'add_catalog' => 'Add Catalog',
+        'basic_information' => 'Basic Catalog Information',
+        'description' => 'Description',
+        'description_en' => 'Description in English',
+        'description_ar' => 'Description in Arabic',
+        'create_catalog' => 'Create Catalog',
+        'edit_catalog' => 'Edit Catalog',
+        'catalog_name' => 'Catalog Name',
+        'create_new_catalog' => 'Create New Catalog',
+        'catalog_brochures' => 'Catalog Brochures',
+        'add_brochure' => 'Add Brochure',
     ],
 
     'coupons' => [

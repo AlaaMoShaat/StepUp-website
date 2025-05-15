@@ -67,6 +67,22 @@
                 </li>
             @endcan
 
+            @can('catalogs')
+                <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title"
+                            data-i18n="nav.templates.main">{{ __('static.catalogs.title') }}</span>
+                        <span class="main-badge badge badge-pill badge-warning">{{ $catalogs_count }}</span>
+                    </a>
+                    <ul class="menu-content">
+
+                        <li class="{{ isActiveRoute('dashboard.catalogs.index') }}"><a class="menu-item"
+                                href="{{ route('dashboard.catalogs.index') }}"
+                                data-i18n="nav.templates.vert.main">{{ __('static.catalogs.title') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
+
             {{-- @can('users')
                 <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title"
                             data-i18n="nav.templates.main">{{ __('static.users.title') }}</span>
@@ -300,7 +316,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a class="menu-item" href="#" data-i18n="nav.page_layouts.3_columns_detached.main">Content
+                    <li><a class="menu-item" href="#"
+                            data-i18n="nav.page_layouts.3_columns_detached.main">Content
                             Det. Sidebar</a>
                         <ul class="menu-content">
                             <li><a class="menu-item" href="layout-content-detached-left-sidebar.html"

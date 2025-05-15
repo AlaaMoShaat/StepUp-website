@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Catalog;
 use App\Models\Setting;
 use App\Models\Store;
 use Illuminate\Support\Facades\Cache;
@@ -28,6 +29,7 @@ class ViewServiceProvider extends ServiceProvider
             $cacheKeys = [
                 'admins_count' => Admin::class,
                 'stores_count' => Store::class,
+                'catalogs_count' => Catalog::class,
             ];
 
             $cachedData = [];

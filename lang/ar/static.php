@@ -33,6 +33,10 @@ return [
         'full_screen' => 'عرض كامل',
         'new_image_uploded' => 'تم تحميل صور جديدة',
         'failed_update' => 'هناك مشكلة في تحديث البيانات',
+        'start_date' => 'تاريخ البداية',
+        'end_date' => 'تاريخ الانتهاء',
+        'to' => 'إلى',
+        'save' => 'حفظ',
 
     ],
     'errors' => [
@@ -147,6 +151,23 @@ return [
         'branch' => 'فرع',
         'add_branch' => 'إضافة فرع',
         'working_hours' => 'ساعات العمل',
+    ],
+
+    'catalogs' => [
+        'title' => 'الكتالوجات',
+        'title_ar' => 'العنوان بالعربية',
+        'title_en' => 'العنوان بالإنجليزية',
+        'add_catalog' => 'إضافة كتالوج',
+        'basic_information' => 'معلومات عامة للكتالوج',
+        'description' => 'الوصف',
+        'description_en' => 'الوصف بالإنجليزية',
+        'description_ar' => 'الوصف بالعربية',
+        'create_catalog' => 'إنشاء كتالوج',
+        'edit_catalog' => 'تعديل الكتالوج',
+        'catalog_name' => 'اسم الكتالوج',
+        'create_new_catalog' => 'إنشاء كتالوج جديد',
+        'catalog_brochures' => 'بروشورات الكتالوج',
+        'add_brochure' => 'إضافة بروشور',
     ],
 
 

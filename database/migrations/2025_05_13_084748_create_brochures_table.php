@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalogs', function (Blueprint $table) {
+        Schema::create('brochures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete();
-            $table->string('title');
-            $table->text('description');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('status')->default(true);
+             $table->foreignId('catalog_id')->constrained('catalogs')->cascadeOnDelete();
+             $table->string('file');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalogs');
+        Schema::dropIfExists('brochures');
     }
 };
