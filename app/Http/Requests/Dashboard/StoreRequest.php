@@ -40,8 +40,29 @@ class StoreRequest extends FormRequest
 
             'status' => ['required', 'in:0,1'],
 
-            'branches.*.*' => ['required', 'string', 'max:60'],
+            'branches' => ['required', 'array', 'min:1'],
+
             'branches.*.neighborhood_id' => ['required', 'exists:neighborhoods,id'],
+
+            'branches.*.address' => ['required', 'string', 'max:255'],
+
+            'branches.*.location' => ['required', 'string', 'max:255'],
+
+            'branches.*.days' => ['required', 'array', 'min:1'],
+
+            'branches.*.days.*.enabled' => ['sometimes', 'boolean'],
+
+            'branches.*.days.*.open_time' => [
+                'required_if:branches.*.days.*.enabled,1',
+                'date_format:H:i',
+                'before:branches.*.days.*.close_time'
+            ],
+
+            'branches.*.days.*.close_time' => [
+                'required_if:branches.*.days.*.enabled,1',
+                'date_format:H:i',
+                'after:branches.*.days.*.open_time'
+            ]
         ];
 
         return $rules;

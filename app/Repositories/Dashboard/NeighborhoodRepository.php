@@ -16,9 +16,14 @@ class NeighborhoodRepository
 
     public function getNeighborhoods()
     {
-        $neighborhoods = Neighborhood::with('branches')->when(!empty(request()->keyword), function($query) {
-            $query->where('name', 'LIKE', '%' . request()->keyword . '%');
-        })->get();
+        $neighborhoods = Neighborhood::all()->map(function ($neighborhood) {
+            return [
+                'id' => $neighborhood->id,
+                'postal_code' => $neighborhood->postal_code,
+                'name' => $neighborhood->getTranslations('name'),
+                'current_name' => $neighborhood->name
+            ];
+        });
         return $neighborhoods;
     }
 

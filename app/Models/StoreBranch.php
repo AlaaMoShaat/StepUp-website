@@ -16,4 +16,11 @@ class StoreBranch extends Model
     {
         return $this->belongsTo(Neighborhood::class, 'neighborhood_id');
     }
+
+    public function days()
+    {
+        return $this->belongsToMany(Day::class, 'appointments', 'branch_id', 'day_id')
+                    ->withPivot('open_time', 'close_time')
+                    ->withTimestamps();
+    }
 }

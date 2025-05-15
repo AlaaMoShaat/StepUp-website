@@ -144,6 +144,7 @@ return [
         'branches' => 'Branches',
         'branch' => 'Branch',
         'add_branch' => 'Add Branch',
+        'working_hours' => 'Working Hours',
     ],
 
     'coupons' => [

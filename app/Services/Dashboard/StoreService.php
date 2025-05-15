@@ -13,13 +13,11 @@ use App\Repositories\Dashboard\StoreBranchRepository;
 
 class StoreService
 {
-    protected $storeRepository, $imageManeger, $storeBranchRepository;
-    public function __construct(StoreRepository $storeRepository, StoreBranchRepository $storeBranchRepository, ImageManeger $imageManeger)
-    {
-        $this->imageManeger = $imageManeger;
-        $this->storeRepository = $storeRepository;
-        $this->storeBranchRepository = $storeBranchRepository;
-    }
+    public function __construct(
+        protected StoreRepository $storeRepository,
+        protected StoreBranchRepository $storeBranchRepository,
+        protected ImageManeger $imageManeger
+    ){}
 
     public function getStores() {
         return $this->storeRepository->getStores();
@@ -70,8 +68,11 @@ class StoreService
                 $data['logo'] = $file_name; //update logo value
             }
             $store = $this->storeRepository->createStore($data);
-            foreach ($data['branches'] as $branch) {
-                $this->storeBranchRepository->storeBranch($store, $branch);
+            foreach ($data['branches'] as $branchData) {
+                $branch = $this->storeBranchRepository->storeBranch($store, $branchData);
+                if (!empty($branchData['days'])) {
+                    $this->storeBranchRepository->syncAppointments($branch, $branchData['days']);
+                }
             }
             DB::commit();
             return $store;
@@ -88,7 +89,7 @@ class StoreService
         return $store;
     }
 
-  public function updateStore($id, $data) {
+    public function updateStore($id, $data) {
         try {
             DB::beginTransaction();
             $store = $this->getStore($id);
@@ -105,8 +106,11 @@ class StoreService
 
             $this->storeBranchRepository->deleteStoreBranches($store);
 
-            foreach ($data['branches'] as $branch) {
-                $this->storeBranchRepository->storeBranch($store, $branch);
+            foreach ($data['branches'] as $branchData) {
+                $branch = $this->storeBranchRepository->storeBranch($store, $branchData);
+                if (!empty($branchData['days'])) {
+                    $this->storeBranchRepository->syncAppointments($branch, $branchData['days']);
+                }
             }
 
             DB::commit();
@@ -120,8 +124,8 @@ class StoreService
         }
     }
 
-
-    public function deleteStore($id) {
+    public function deleteStore($id)
+    {
         $store = $this->getStore($id);
         if($store->logo != null) {
             $this->imageManeger->deleteImageFromLocal($store->logo);
@@ -131,7 +135,8 @@ class StoreService
         return $store;
     }
 
-    public function changeStatus($id) {
+    public function changeStatus($id)
+    {
         $store = $this->getStore($id);
         if (!$store) {
             abort(404);
@@ -144,8 +149,8 @@ class StoreService
         return $store;
     }
 
-
-    public function storeCache() {
+    public function storeCache()
+    {
         Cache::forget('stores_count');
     }
 }

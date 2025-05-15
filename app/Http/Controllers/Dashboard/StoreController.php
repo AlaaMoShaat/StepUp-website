@@ -6,40 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Services\Dashboard\StoreService;
 use App\Http\Requests\Dashboard\StoreRequest;
 use App\Services\Dashboard\NeighborhoodService;
+use App\Services\Dashboard\DayService;
 use App\Services\Dashboard\StoreBranchService;
 
 class StoreController extends Controller
 {
-    protected $storeService, $storeBranchService, $neighborhoodService;
-    public function __construct(StoreService $storeService, StoreBranchService $storeBranchService, NeighborhoodService $neighborhoodService) {
-        $this->storeService = $storeService;
-        $this->storeBranchService = $storeBranchService;
-        $this->neighborhoodService = $neighborhoodService;
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $stores = $this->storeService->getStoresForDataTable();
-        $neighborhoods = $this->neighborhoodService->getNeighborhoods();
-        return view('dashboard.stores.index', compact(['stores', 'neighborhoods']));
-    }
+    public function __construct(
+        protected StoreService $storeService,
+        protected StoreBranchService $storeBranchService,
+        protected NeighborhoodService $neighborhoodService,
+        protected DayService $dayService
+    ) {}
 
-    public function getAllStores() {
+    public function getAllStores()
+    {
         $stores = $this->storeService->getStoresForDataTable();
         return $stores;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getAllNeighborhoods()
     {
-        // $store = $this->
-        // return view('dashboard.stores.create');
+        $neighborhoods = $this->neighborhoodService->getNeighborhoods();
+        return $neighborhoods;
     }
 
+    public function getAllDays()
+    {
+        $days = $this->dayService->getDays();
+        return $days;
+    }
+
+    public function index()
+    {
+        $stores = $this->getAllStores();
+        return view('dashboard.stores.index', compact(['stores']));
+    }
+
+    public function create()
+    {
+        $neighborhoods = $this->getAllNeighborhoods();
+        $days = $this->getAllDays();
+        return view('dashboard.stores.create', compact(['neighborhoods', 'days']));
+    }
 
     public function store(StoreRequest $request)
     {
@@ -51,27 +59,19 @@ class StoreController extends Controller
         return redirect()->route('dashboard.stores.index')->with('success', __('messages.success_msg'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $store = $this->storeService->getStore($id);
-        $neighborhoods = $this->neighborhoodService->getNeighborhoods();
-        return view('dashboard.stores.edit', compact(['store', 'neighborhoods']));
+        $neighborhoods = $this->getAllNeighborhoods();
+        $days = $this->getAllDays();
+        return view('dashboard.stores.edit', compact(['store', 'neighborhoods', 'days']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreRequest $request, string $id)
     {
         $data = $request->only(['name', 'status', 'logo', 'phone', 'importance_level','website_url', 'email', 'branches']);
@@ -82,9 +82,6 @@ class StoreController extends Controller
         return redirect()->route('dashboard.stores.index')->with('success', __('messages.success_msg'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $store = $this->storeService->deleteStore($id);
@@ -94,8 +91,8 @@ class StoreController extends Controller
         return response()->json(['status' => 'success', 'message' => __('messages.success_msg')], 200);
     }
 
-
-    public function changeStatus($id) {
+    public function changeStatus($id)
+    {
         $store = $this->storeService->changeStatus($id);
         if (!$store) {
             return response()->json(['status' => 'failed', 'message' => __('messages.failed_msg')]);

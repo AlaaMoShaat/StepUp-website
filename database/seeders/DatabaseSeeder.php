@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Dashboard\AdminSeeder;
 use Database\Seeders\Dashboard\CitySeeder;
+use Database\Seeders\Dashboard\DaySeeder;
 use Database\Seeders\Dashboard\NeighborhoodSeeder;
 use Database\Seeders\Dashboard\RoleSeeder;
 use Database\Seeders\Dashboard\UserSeeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CitySeeder::class,
             NeighborhoodSeeder::class,
+            DaySeeder::class,
         ]);
     }
 }
