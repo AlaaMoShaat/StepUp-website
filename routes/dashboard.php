@@ -9,6 +9,8 @@ use App\Http\Controllers\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\StoreController;
 use App\Http\Controllers\Dashboard\CatalogController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\BrochureController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Dashboard\Auth\ResetPasswordController;
@@ -102,6 +104,23 @@ Route::group(
                 Route::get('catalogs/{id}/status', [CatalogController::class, 'changeStatus'])->name('catalogs.changeStatus');
             });
            ################################ End Catalog Routes #################################
+
+            ################################ brochure Routes #################################
+            Route::group([], function() {
+                Route::get('stores/{store}/catalogs/{catalog}/brochures/create', [BrochureController::class, 'create'])->name('brochures.create');
+                Route::post('brochures', [BrochureController::class, 'store'])->name('brochures.store');
+                Route::get('brochures-all', [BrochureController::class, 'getAllbrochures'])->name('brochures.all');
+                Route::get('brochures/{id}/status', [BrochureController::class, 'changeStatus'])->name('brochures.changeStatus');
+            });
+            ################################ End Store Routes #################################
+
+            ################################ Category Routes #################################
+            Route::group(['middleware'=>'can:categories'], function() {
+                Route::resource('categories', CategoryController::class)->except('show');
+                Route::get('categories-all', [CategoryController::class, 'getAllCategories'])->name('categories.all');
+                Route::get('categories/{id}/status', [CategoryController::class, 'changeStatus'])->name('categories.changeStatus');
+            });
+            ################################ End Category Routes #################################
 
             ################################ Setting Routes #################################
             Route::group(['middleware'=>'can:settings', 'as' => 'settings.'],  function() {

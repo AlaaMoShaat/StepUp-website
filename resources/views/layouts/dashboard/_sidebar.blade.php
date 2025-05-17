@@ -82,6 +82,24 @@
                 </li>
             @endcan
 
+            @can('categories')
+                <li class=" nav-item"><a href="#">
+                        <span class="menu-title" data-i18n="nav.templates.main">{{ __('static.categories.title') }}</span>
+                        <span class="badge badge badge-pill badge-warning">{{ $categories_count }}</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ isActiveRoute('dashboard.categories.index') }}">
+                            <a class="menu-item" href="{{ route('dashboard.categories.index') }}"
+                                data-i18n="nav.templates.vert.main">{{ __('static.categories.title') }}</a>
+                        </li>
+                        <li class="{{ isActiveRoute('dashboard.categories.create') }}"><a class="menu-item"
+                                href="{{ route('dashboard.categories.create') }}"
+                                data-i18n="nav.templates.vert.main">{{ __('static.categories.create_category') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
 
             {{-- @can('users')
                 <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title"

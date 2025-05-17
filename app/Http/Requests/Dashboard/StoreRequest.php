@@ -46,7 +46,7 @@ class StoreRequest extends FormRequest
 
             'branches.*.address' => ['required', 'string', 'max:255'],
 
-            'branches.*.location' => ['required', 'string', 'max:255'],
+            'branches.*.location' => ['required', 'string'],
 
             'branches.*.days' => ['required', 'array', 'min:1'],
 

@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Store;
 use App\Models\Catalog;
 use App\Models\Setting;
-use App\Models\Store;
+use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +28,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         view()->composer('dashboard.*', function ($view) {
             $cacheKeys = [
+                'categories_count' => Category::class,
                 'admins_count' => Admin::class,
                 'stores_count' => Store::class,
                 'catalogs_count' => Catalog::class,

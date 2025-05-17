@@ -6,6 +6,7 @@ use Database\Seeders\Dashboard\AdminSeeder;
 use Database\Seeders\Dashboard\CitySeeder;
 use Database\Seeders\Dashboard\DaySeeder;
 use Database\Seeders\Dashboard\NeighborhoodSeeder;
+use Database\Seeders\Dashboard\OfferSeeder;
 use Database\Seeders\Dashboard\RoleSeeder;
 use Database\Seeders\Dashboard\UserSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             NeighborhoodSeeder::class,
             DaySeeder::class,
+            OfferSeeder::class,
         ]);
     }
 }

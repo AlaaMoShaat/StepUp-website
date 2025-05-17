@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('brochures', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('catalog_id')->constrained('catalogs')->cascadeOnDelete();
-             $table->string('file');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->boolean('status')->default(1);
+            $table->bigInteger('parent')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('brochures');
+        Schema::dropIfExists('categories');
     }
 };

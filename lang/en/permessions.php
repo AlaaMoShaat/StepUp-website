@@ -5,6 +5,7 @@ return [
     'categories' => 'Manage Categories',
     'stores' => 'Manage Stores',
     'catalogs' => 'Manage Catalogs',
+    'brochures' => 'Manage Brochures',
     'products' => 'Manage Products',
     'users' => 'Manage Users',
     'roles' => 'Manage Roles',
